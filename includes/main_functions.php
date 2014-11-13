@@ -7,6 +7,7 @@ if (!(defined('DP_BASE_DIR'))) {
 }
 
 require_once DP_BASE_DIR . '/includes/htmLawed.php';
+require_once DP_BASE_DIR . '/includes/dbwrapper.inc.php';
 
 $CR = "\n";
 define('SECONDS_PER_DAY', 60 * 60 * 24);
