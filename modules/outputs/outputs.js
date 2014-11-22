@@ -9,7 +9,7 @@ if($j.browser.msie){
 function datesoff(){
     $j("input.datepicker").val("");
     return false;
-}  
+}
 
 var pager = function(){
     var self = this;
@@ -40,13 +40,13 @@ var pager = function(){
         }, self.navgt).appendTo($span);
         $j("<div class='navs last_page' title='Last'></div>").bind('click', {
             action: 'last'
-        }, self.navgt).appendTo($span);		
+        }, self.navgt).appendTo($span);
 		$span.appendTo(self.$div);
         $table.bind('repaginate', function(){
 			var st = 0, lowend = (self.currentPage * self.numPerPage), highend = ((self.currentPage + 1) * self.numPerPage - 1), hiter = false,
 			$lbody=$tbody.detach();
 			var trar=$j('tr', $lbody),trl=trar.length,ofc= new RegExp("offwall","gi"),oftd= new RegExp("offview","gi");
-			//.each(function(i){			
+			//.each(function(i){
 			for(var i= 0; i < trl; i++){
 				var tr=trar[i];
 				if (hiter) {
@@ -60,7 +60,7 @@ var pager = function(){
 								$j(tr).removeClass("offview");
 							}
 						}
-						else 
+						else
 							if (!todo) {
 								$j(tr).addClass("offview");
 							}
@@ -69,7 +69,7 @@ var pager = function(){
 							hiter = true;
 						}
 					}
-				}				
+				}
 			}
 			tr=null;
 			trar=null;
@@ -82,25 +82,25 @@ var pager = function(){
 			$lbody=null;
 			fCleaner();
 		});
-        
+
         if (self.numPages > 1) {
             self.arrows();
         }
 		thar=$j("tr:first > th", $thead);
-		thl=thar.length;	
+		thl=thar.length;
         self.collector(mode);
 		//self.lector();
 		$table
-			.trigger('repaginate')        
-			.attr("class", "rtable");		
+			.trigger('repaginate')
+			.attr("class", "rtable");
         $j("#pagebox").show();
-		$j("#cleanbox").show();		
-		acols = [];	
+		$j("#cleanbox").show();
+		acols = [];
 		var colz=$j("colgroup > col", $table);
-		var cl=colz.length;		
-		for(var i=0;i < cl; i++){			
+		var cl=colz.length;
+		for(var i=0;i < cl; i++){
 			$j(colz[i]).attr("data-thid", i);
-			acols.push(colz[i]);		
+			acols.push(colz[i]);
 		}
 		colz=null;
 		cl=null;
@@ -115,10 +115,10 @@ var pager = function(){
 					$j(".delbutt", $this).hide();
 				}
 			});
-		}					
+		}
     }
-	
-    
+
+
     this.reorder = function(obj){
         var tt=$j(obj).val();
 		if(tt == -1){
@@ -130,7 +130,7 @@ var pager = function(){
         this.updatePages();
         memo.toggle();
     }
-    
+
     this.updatePages = function(){
         self.numPages = Math.ceil(self.numRows / self.numPerPage);
         $j("#pinfor").find("span.totp").text(self.numPages);
@@ -140,7 +140,7 @@ var pager = function(){
             }
         });
     }
-    
+
     this.getHeadDataStat = function(){
 		var items=["col",'row'];
 		var res={row:[],col:[]};
@@ -153,15 +153,15 @@ var pager = function(){
 						title: $j("th:eq(" + areas[items[c]][i] + ")",$thead).text(),
 						id: areas[items[c]][i]
 					});
-				}				
+				}
 			}
 		}
 		return res;
 	}
-	
+
 	this.patchCell = function(cell,y, x, dval,val,vval,cw){
-		$j(cell).empty().text(vval).width(cw).data("wed",0);			
-		$j("body").css('cursor','progress');	
+		$j(cell).empty().text(vval).width(cw).data("wed",0);
+		$j("body").css('cursor','progress');
 		$j.ajax({
 			type: 'get',
 			url:  '/?m=outputs&suppressHeaders=1',
@@ -176,13 +176,13 @@ var pager = function(){
 				}
 				$j("body").css('cursor','default');
 			}
-			
+
 		});
-		
+
 	}
-	
+
     this.collector = function(mode){
-    	
+
         //var grows = $j("tr", $tbody);
 		self.sortMethods=heads;
 		self.allRows=btr;
@@ -198,12 +198,12 @@ var pager = function(){
 			prow['uid']=itd;
 			self.allRows[itd]=prow;
 			self.visible.push(itd);
-			prow=null;		
-		}	
+			prow=null;
+		}
 
 		if (mode != 'out') {
 			$j(".delbutt",$tbody).live("click",function(){
-				if (confirm("You want delete this entry?")) {
+				if (confirm(_l("entryDelete_ask"))) {
 					var $row = $j(this).parent().parent();
 					var rid = $row.attr('id').replace('row_', '');
 					$j.ajax({
@@ -223,13 +223,13 @@ var pager = function(){
 									}
 								});
 							}
-							
+
 						}
 					});
-					
+
 				}
 			});
-		
+
 			$j(".vcell", $tbody).live("dblclick", function(ev){
 				var rid = $j(this).parent().attr("id").replace("row_", ''),
 				col = $j(this).prevAll().length,cell = this, selt = '', cst = $j(cell).data("wed");
@@ -254,13 +254,13 @@ var pager = function(){
 								nval2 = nval;
 								self.patchCell(cell, rid, col, nval, nval, nval2, cw);
 							}
-							else 
+							else
 								if (code == 27) {
 									$j(cell).empty().data("wed", 0).text(txt);
 								}
 						}).appendTo(cell);
 					}
-					else 
+					else
 						if (isArray(selects[col])) {
 							var $ued = $j("<select class='dred_sel' ></select>");//style='width:" + (cw) + "px;'
 							var ll = selects[col].length;
@@ -286,14 +286,14 @@ var pager = function(){
 									nval = nval2.toLowerCase();
 									self.patchCell(cell, rid, col, nv, nval, nval2, cw);
 								}
-								else 
+								else
 									if (code == 27) {
 										$j(cell).data("wed", 0).empty().text(txt);
 									}
 							}).appendTo(cell);
 						}
 				}
-				else 
+				else
 					if (self.colType(col) == 'date') {
 						var odate = self.treatVal('date', txt);
 						calif = randomString();
@@ -306,17 +306,17 @@ var pager = function(){
 						$j(cell).data("wed", 0);
 						popCalendarEd(calif, odate);
 					}
-				
+
 			});
 		}
 
 		btr=null;
-		fakes=null;	
+		fakes=null;
 		lets=null;
-        grows=null;		
+        grows=null;
 		heads=null;
-        
-        //$j("tr:first > th", $thead).each(function(hid){		
+
+        //$j("tr:first > th", $thead).each(function(hid){
 		$j(".forsize",$thead)
 			.live("mouseenter",function(e){
 						if (!rsip) {
@@ -327,7 +327,7 @@ var pager = function(){
 			.live("mouseleave",function(e){
 				var utime;
 				var cbu = $j(this).attr("data-thid");
-				if (!rsip) 
+				if (!rsip)
 					$j(this).unbind('mousemove', monPosR);
 				redv = false;
 			});
@@ -341,12 +341,12 @@ var pager = function(){
 					id: hid,
 					title: $j(cthis).text(),
 					type: self.colType(hid),
-					parent: $j(cthis).attr("data-part")					
+					parent: $j(cthis).attr("data-part")
 				});
 			}else{
-				$j("#shome").html("<span class='note'>Cannot build stat table from multiple forms</span>");
+				$j("#shome").html("<span class='note'>"+ _l("cantbldstat_mult") +"</span>");
 			}
-			
+
             $j(cthis)
 			.bind('mouseover', function(){
 				var mp=$j(this).offset();
@@ -359,10 +359,10 @@ var pager = function(){
 					left: (mp.left+1),
 					top: mp.top
 				});
-				$j(this).addClass("head_act");                
+				$j(this).addClass("head_act");
             })
 			.bind("mouseout",{hdi:hid}, function(x){
-				var me=this,uid=x.data.hdi,getout;	
+				var me=this,uid=x.data.hdi,getout;
 				$j(this).removeClass("head_act")
 				.find("div.head_menu").each(function(){
                     var cst = $j(this).data('cact');
@@ -390,7 +390,7 @@ var pager = function(){
                 'head_id': hid
             }, function(xd){
 				if(xd.target.className.match(/head_menu/g)){
-					//return ;					
+					//return ;
 					//$j(xd.target).trigger("click");
 					self.headMenuWork(xd);
 					return;
@@ -403,7 +403,7 @@ var pager = function(){
                 if (!self.heads[heid]) {
                     self.heads[heid] = 'desc';
                 }
-                var oway = self.heads[heid], nway
+                var oway = self.heads[heid], nway;
                 nway = self.oppoWay(oway);
                 self.msort(heid, nway);
                 $j(this).removeClass("head_act");
@@ -414,13 +414,13 @@ var pager = function(){
 				self.headMenuWork(df);
         });  //).appendTo(cthis);
     }
-	
+
 	this.headMenuWork = function(df){
 		var $ard = $j(df.target), $hcell = $ard.parent(),
 		heid = $hcell.attr("data-thid");//df.data.head_id;
-		self.lector(heid);		                
+		self.lector(heid);
 		var meon = $ard.data("cact"), cbon, cben;
-		if (!meon || meon == 0) {		
+		if (!meon || meon == 0) {
 			for (var ix = 0; ix < thl; ix++) {
 				var tdc = thar[ix];
 				if (ix != heid) {
@@ -467,11 +467,11 @@ var pager = function(){
 		df.stopPropagation();
 		return false;
 	}
-	
-	this.showslist = function(hid){		
+
+	this.showslist = function(hid){
 		var rowe=$j.inArray(hid,areas.row);
 		var cole=$j.inArray(hid,areas.col);
-		var mr={c:false,d:false},mc=mr;	
+		var mr={c:false,d:false},mc=mr;
 		var $po = $j("#head_"+hid);
 		self.sl_active=$j(".hstat_menu",$po);
 		self.sl_active.addClass("menu_stay");
@@ -479,8 +479,8 @@ var pager = function(){
         var np = {
                 x: pp.left,
                 y: (pp.top + 28)
-        };	
-		if(rowe >= 0){			
+        };
+		if(rowe >= 0){
 				mr = {
 					c: true,
 					d: false
@@ -488,8 +488,8 @@ var pager = function(){
 				mc = {
 					c: false,
 					d: true
-				};			
-		}else if(cole >= 0 ){			
+				};
+		}else if(cole >= 0 ){
 				mr = {
 					d: true,
 					c: false
@@ -515,14 +515,14 @@ var pager = function(){
 			self.menuKiller(e);
 		});
 	}
-		
+
 	this.recrute = function(ev, obj){
 		var hid=$slist.data("key");
 		var state=$j(obj).is(":checked");
 		var cl=obj.className;
 		cl=cl.replace("_check",'');
 		if(state){
-			areas[cl].push(hid);			
+			areas[cl].push(hid);
 		}else{
 			var pos=$j.inArray(hid,areas[cl]);
 			areas[cl].splice(pos,1);
@@ -530,7 +530,7 @@ var pager = function(){
 		sl_upd=true;
 		self.showslist(hid);
 	}
-	
+
 	this.cleaner = function (e){
 		var obj=$j(e.target).parent();
 		var hid=$j(obj).data("hid");
@@ -543,18 +543,18 @@ var pager = function(){
 		}
 		var pos=$j.inArray(hid,areas[nname]);
 		areas[nname].splice(pos,1);
-		
+
 		$j(obj).closest("li").remove();
-	}
-	
+	};
+
 	this.justHideMenu = function(){
 		if($thead){
 			$j("th > div",$thead).removeClass("head_menu_on hstat_menu_on menu_stay");
-		}		
-		$fb.hide();		
+		}
+		$fb.hide();
 		$slist.hide();
-	}
-	
+	};
+
 	this.closeMenu = function(){
 		if (self.head_active) {
 			self.head_active.data("cact", 0).removeClass("menu_stay head_menu_on").parent().data("skey", false).removeClass('head_sel_act');
@@ -565,16 +565,16 @@ var pager = function(){
 		self.justHideMenu();
 		filmter.hideAll();
 		$j(document).unbind("click");
-	}
-	
+	};
+
 	this.menuKiller = function(ev){
 		var et=ev.currentTarget;
-		var p1=$j(ev.target).closest("div.filter_box");		
+		var p1=$j(ev.target).closest("div.filter_box");
 		if (et != self.head_active && (!p1 || p1.length == 0)) {
 			self.closeMenu();
 		}
-	}
-    
+	};
+
     this.findlect = function(key, arr){
         if (arr.length == 0) {
             return false;
@@ -587,17 +587,17 @@ var pager = function(){
                 }
             }
         }
-    }
-    
+    };
+
     this.lectSort = function(a, b){
         var x = a.r, y = b.r;
         return x - y;
-    }
-    
+    };
+
 	this.getLects = function(i){
 		return this.lects[i];
-	}
-	
+	};
+
     this.lector = function(i){
         var ul, li, cb, sp;
 		if (!self.lectsHTML[i]) {
@@ -613,8 +613,8 @@ var pager = function(){
         cb = $j("<input type='checkbox'>");
         sp = $j("<span class='sline'></span>");
         //for (var i = 0; i < ll; i++) {
-                       
-            
+
+
             var tar = self.lects[i];
             //tar.sort(self.lectSort);
             var x=0;
@@ -628,24 +628,24 @@ var pager = function(){
                     $j(t).bind(be, {
                         tid: val,
                         col: i
-                    }, function(x){						
+                    }, function(x){
                         var st = $j(this).is(":checked"),tobj = this,cx=x.data.col;
-                        if ($j("ul#outf").find("input:checked").length > 0) {                            
+                        if ($j("ul#outf").find("input:checked").length > 0) {
                             if (!st) {
                                 fl++;
                             }
                             filmter.setColValues(cx, $j(tobj).attr("cact"), st);
                         }
-                        else {                            
+                        else {
                             filar[cx].mvals = [];
-                            filar[cx].state = false;                            
+                            filar[cx].state = false;
                         }
                         memo.toggle();
 						self.fillects=true;
                         setTimeout(function(){
                             self.runFilters();
 							//self.pickLects();
-                            memo.toggle();                            
+                            memo.toggle();
                         }, 20);
                     });
                     $j(t).attr({
@@ -666,16 +666,16 @@ var pager = function(){
             }
 			$j(ul)[0].appendChild(frag);
             $j(ul).disableSelection();
-            self.lectsHTML[i] = ul;//$j(ul).clone(true);            
-			ul=null;        
+            self.lectsHTML[i] = ul;//$j(ul).clone(true);
+			ul=null;
 			frag=null;
         //}
-    }
-    
+    };
+
 	this.pickLects = function(i){
-		
-	}
-	
+
+	};
+
     this.colType = function(key){
         var ct = self.sortMethods[key], rr;
         if (ct != 'string') {
@@ -690,12 +690,12 @@ var pager = function(){
             rr = 'string';
         }
         return rr;
-    }
-    
+    };
+
     this.colVals = function(key){
         return $j(self.lectsHTML[key]).clone(true);
-    }
-    
+    };
+
     this.oppoWay = function(way){
         var nway;
         if (way == 'desc') {
@@ -705,8 +705,8 @@ var pager = function(){
             nway = 'desc';
         }
         return nway;
-    }
-    
+    };
+
     this.cleanHeadSort = function(cur, nway){
         var ul = 0;
         if (self.heads.length == 0) {
@@ -724,15 +724,15 @@ var pager = function(){
                 self.heads[z] = nway;
             }
         }
-    }
-    
+    };
+
     this.ifsort = function(way){
         self.curKey = $j("#filbox").data("skey");
         self.msort(self.curKey, way);
         self.hideMenu();
         filmter.hideAll();
-    }
-    
+    };
+
     this.hideMenu = function(){
 		if (!self.fillects) {
 			$fb.hide();
@@ -742,8 +742,8 @@ var pager = function(){
         $j(".head_menu", $thead).each(function(inx){
             $j(this).removeClass("head_menu_on menu_stay").data("cact", false).prev().removeClass("head_sel_act");
         });
-    }
-    
+    };
+
     this.msort = function(key, way){
         memo.toggle();
         setTimeout(function(){
@@ -779,7 +779,7 @@ var pager = function(){
 				/*if (nr && nr['context']) {
 					frag.appendChild(nr['context']);
 				}*/
-                
+
             }
 			$table.append($lbody);
             $j("#head_" + key).removeClass(spre + '' + self.oppoWay(way)).addClass(spre + way).find("div.head_menu",this).addClass("head_menu_sort");
@@ -791,10 +791,10 @@ var pager = function(){
             });
             memo.toggle();
         }, 50);
-    }
-    
+    };
+
     this.iterer = function(a, b){
-        var x = a[self.curKey], y = b[self.curKey], r1, r2, r3;		
+        var x = a[self.curKey], y = b[self.curKey], r1, r2, r3;
         if (isNaN(x) && self.curMethod != 'string') {
             x = 0;
         }
@@ -820,22 +820,22 @@ var pager = function(){
         if (a['hidden'] && b['hidden']) {
             r3 = 0;
         }
-        else 
+        else
             if (a['hidden']) {
                 r3 = 1;
             }
-            else 
+            else
                 if (b['hidden']) {
                     r3 = -1;
                 }
         return r3;
     }
-    
+
     this.treatVal = function(way, val){
         if (way == 'int' || way == 'date') {
             if (val.length > 0) {
 				val = parseInt(val.replace(self.cleanSet,''));
-				
+
             }
             else {
                 val = 0;
@@ -844,11 +844,11 @@ var pager = function(){
                 val = 0;
             }
         }
-        else 
+        else
             if (way == 'float') {
                 val = parseFloat(val);
             }
-            else 
+            else
                 if (way == 'string') {
                     if (!val) {
                         val = '';
@@ -858,8 +858,8 @@ var pager = function(){
                     }
                 }
         return val;
-    }
-    
+    };
+
     this.arrows = function(){
         if (self.numPages > 0) {
             if (self.currentPage > 0) {
@@ -892,10 +892,10 @@ var pager = function(){
             else {
                 $j(".last_page", self.$div).hide();
             }
-            
+
         }
-    }
-    
+    };
+
     this.navgt = function(met){
         switch (met.data.action) {
             case 'first':
@@ -912,72 +912,72 @@ var pager = function(){
                 break;
             default:
                 break;
-                
+
         }
         self.hideMenu();
         $j("#pinfor").find("span.curp").text(self.currentPage + 1);
         $table.trigger('repaginate');
-    }
-	
+    };
+
 	this.getVisibles = function(){
 		return this.visible;
-	}
-    
+	};
+
 	this.saveTable = function(){
-		
-		var fname=prompt("Please enter name for table file");
+
+		var fname=prompt(_l('nameForTableFile'));
 		if(fname === null){
 			return false;
-		}		
+		}
 		while(!fname || fname.length == 0 || trim(fname) == ''){
-			fname=prompt("Please enter valid name for table file!");
+			fname=prompt(_l('nameForTableFile_valid'));
 			if(fname === null){
 				return false;
 			}
-		}		
+		}
 		$j("#stabbox").val(JSON.stringify(self.getVisibles()));
 		document.saveme.fname.value=fname;
 		document.saveme.submit();
-	}
-	
+	};
+
 	this.startss = function(){
 		if (rrr > 0) {
 			gpgr.justHideMenu();
 			if (!stater) {
 				stater = new sFrames();
 				stater.init();
-				
+
 			}
 			sl_upd = false;
-			$j("#tabs").toTab(3);			
+			$j("#tabs").toTab(3);
 		}
-	}
-	
+	};
+
     this.runFilters = function(event){
         var tfs = 0, utext, odm = false, tr_del = false, killed = 0, i = 0, met = 0, alive = 0, tstr, t, zcl, sVal, tcl, once = false,wildCardPatt = new RegExp(regexEscape("#"), 'g');
 		$lbody=$tbody.detach();
 		self.visible=[];
 		var fillength=filar.length,tlength=fillength;
         //$j(filar).each(function(er){
-		while(tlength--){			
+		while(tlength--){
             if (filar[tlength] && filar[tlength].state == true) {
                 tfs++;
             }
         }//);
-        
+
         if (tfs == 0)  {
 			var ltt = self.allRows.length;
 			/*for (var i = 0; i < ltt; i++) {
 				$j("tr#row_" + i, $tbody).removeClass("offwall");
 				self.allRows[i]['hidden'] = false;
-				self.visible.push(i);				
+				self.visible.push(i);
 			}*/
 			$j("tr",$lbody).removeClass("offwall");
 			self.numRows=ltt;
 			while(ltt--){
 				self.allRows[ltt]['hidden'] = false;
 				self.visible.push(ltt);
-			}						
+			}
 			self.updatePages();
 			return;
 		}
@@ -993,7 +993,7 @@ var pager = function(){
 			}
 			var fakes = Row['fake'],upret;
             //$j(filar).each(function(iCC){
-			for(var iCC=0; iCC < fillength; iCC++){					                
+			for(var iCC=0; iCC < fillength; iCC++){
                     var zcol = filar[iCC],myequ = [], tcase, must = [],fpos=$j.inArray(iCC, fakes),
 						zmtds=zcol.methods,zvals=zcol.mvals;
                     if (zcol && zcol.state &&  fpos < 0) {
@@ -1023,7 +1023,7 @@ var pager = function(){
 							var filterPatt = new RegExp(sFilterTxt, "i");
 							tcase = "str";
 						}
-						else 
+						else
 							if (ztype == 'date') {
 								for (var usl in zmtds) {
 									if (zmtds[usl] && zmtds[usl].r.length > 0) {
@@ -1062,8 +1062,8 @@ var pager = function(){
 						sVal = Row[iCC];
 						var bMatch = true, bOddRow = true, smar = new Array(),notArr=isArray(sVal),usVal;
 						tr_del = false;
-						
-						
+
+
 						if (ztype == 'string' && sVal.length > 0 && sVal != 'false' ) {
 							if(notArr){
 								usVal=sVal[1];
@@ -1093,7 +1093,7 @@ var pager = function(){
 							if (!sVal || sVal.length == 0) {
 								sVal = dval;
 							}
-							if (tstr.length == 0) 
+							if (tstr.length == 0)
 								tstr = 0;
 							var wt = "", resl;
 							$j(myequ).each(function(zs){
@@ -1136,7 +1136,7 @@ var pager = function(){
 										xt += pret + sVal + pret + ' ' + umv + ' || ';
 									}
 								}
-								
+
 							}
 							xt = xt.replace(/\|\|\s$/, '');
 							if (xt.length > 0) {
@@ -1186,7 +1186,7 @@ var pager = function(){
 		}
 		else {
 			$table.trigger("repaginate");
-		}                 
+		}
     }
 }
 
@@ -1228,14 +1228,14 @@ function cleanAllF(){
 }
 
 function progress(){
-    this.msg = 'Loading...';
+    this.msg = _l("Loading") + '...';
     this.mode = 0;
     this.$box;
 }
 
 progress.prototype.init = function(){
     this.$box = $j("#mbox").text(this.msg).center();
-}
+};
 
 progress.prototype.toggle = function(){
     if (this.mode == 0) {
@@ -1246,42 +1246,42 @@ progress.prototype.toggle = function(){
         this.$box.hide();
         this.mode = 0;
     }
-}
+};
 
 progress.prototype.banner = function(ntxt){
     if (ntxt && ntxt.length > 0) {
         this.msg = ntxt;
     }
     else {
-        this.msg = 'Rendering';
+        this.msg = _l("Rendering");
     }
     this.init();
-}
+};
 
 
 var filtersClass = function(){
     this.numberfil = [];
     this.numberfil[0] = {
-        "title": 'more',
+        "title": _l('more'),
         "html": "gt",
         "func": ">"
     };
     this.numberfil[1] = {
-        "title": 'less',
+        "title": _l('less'),
         "html": "lt",
         "func": "<"
     };
     this.numberfil[2] = {
-        "title": 'equal',
+        "title": _l('equal'),
         "html": "eq",
         "func": "=="
     };
     this.numberfil[3] = {
-        "title": 'not equal',
+        "title": _l('not equal'),
         "html": "ne",
         "func": "!="
     };
-    
+
     this.number_block;
     this.text_block;
     this.date_block;
@@ -1290,11 +1290,11 @@ var filtersClass = function(){
     this.$uniques = $j("#filin_list");
 	this.filterBox = document.createElement('input');
 	this.dateBox = $j("<div class='dbox'></div>");
-}
+};
 
 filtersClass.prototype.getFilters = function(){
     return filar;
-}
+};
 
 filtersClass.prototype.setColValues = function(col, val, add){
     if (add) {
@@ -1322,12 +1322,12 @@ filtersClass.prototype.setColValues = function(col, val, add){
             filar[col].state = false;
         }
     }
-    
-}
+
+};
 
 filtersClass.prototype.me = function(){
     return this;
-}
+};
 
 filtersClass.prototype.launchFilter = function(ffoc){
     memo.toggle();
@@ -1339,7 +1339,7 @@ filtersClass.prototype.launchFilter = function(ffoc){
         ffoc = false;
         memo.toggle();
     }, 100);
-}
+};
 
 filtersClass.prototype.init = function(){
     var self = this;
@@ -1371,14 +1371,14 @@ filtersClass.prototype.init = function(){
             }
         });
         this.id = '_filterText' + fid;
-        
+
     }).keypress(function(e){
 	var code = (e.keyCode ? e.keyCode : e.which);
-		if (code == 13) {		
+		if (code == 13) {
 			//keyup(function(){
 			// clearTimeout(filter);
 			var $fpar = $j(this).parent().parent(), ust, fid = $j("#filbox").data("skey"), fmtd = $j(this).attr("data-method"), lval = this.value;
-			
+
 			if (lval.length > 0) {
 				ust = true;
 				if (fmtd) {
@@ -1399,7 +1399,7 @@ filtersClass.prototype.init = function(){
 				}
 				else {
 					filTool(lval, true, "match", '');
-					
+
 				//filar[fid].methods['match'] = this.value;
 				}
 			}
@@ -1415,7 +1415,7 @@ filtersClass.prototype.init = function(){
 			self.launchFilter(this);
 		}
     });
-    
+
     //if (!$j.browser.msie) {
 		$j(self.dateBox).html(
 			"<input type='text' class='button ' style='width:100px;' disabled='disabled'>&nbsp;&nbsp;"+
@@ -1436,7 +1436,7 @@ filtersClass.prototype.init = function(){
          $j(self1).trigger("cleanDate");
          });*/
         $j(this).eraser(true);
-        
+
         if (fmtd) {
             filTool(hv.val(), true, fmtd, lval);
             if (fmtd == "==" || fmtd == "!=") {
@@ -1474,9 +1474,9 @@ filtersClass.prototype.init = function(){
         var cmtd = $me.attr("data-method");
         $me.removeClass("filter_work_date").addClass("boxd");
         filTool('', false, cmtd, '');
-        self.launchFilter($me);        
+        self.launchFilter($me);
     });
-    	
+
     this.number_block = $j("<ul class='tobs'></ul>");
     this.text_block = $j(this.number_block).clone(true);
     this.date_block = $j(this.number_block).clone(true);
@@ -1508,19 +1508,19 @@ filtersClass.prototype.init = function(){
 			$t1=null;
         }
     }
-    
+
     var $t = $j("<li class='ffbb fil_line'></li>");
     var s = $j("<span class='comsign ts'></span>");
     $t.append(s).append(this.filterBox);
     $j(this.text_block).append($t);
-    
+
     if ($j.browser.msie) {
         $j("input#fil_on").click(function(){
             filmter.checkFilter(this);
         });
-        
+
         if ($j.browser.version == 7) {
-            $j("input#fil_on").css("top", "-26px");			
+            $j("input#fil_on").css("top", "-26px");
         }
         if ($j.browser.version > 7) {
             $j("#lbl").css("top", "-3px");
@@ -1603,7 +1603,7 @@ filtersClass.prototype.showfils = function(cdiv){
                     }
                 }
             });
-            if (lop) 
+            if (lop)
                 $j("input#fil_on").attr("disabled", false);
             fdht = $j(this.number_block).clone(true);
         }
@@ -1624,7 +1624,7 @@ filtersClass.prototype.showfils = function(cdiv){
                                 state: false
                             };
                         }
-                        
+
                         filar[tdsc].methods[cn] = {
                             r: '',
                             v: ''
@@ -1658,8 +1658,8 @@ filtersClass.prototype.showfils = function(cdiv){
 }
 
 filtersClass.prototype.popCalendar = function(f){
-    this.calendarField = f.data.fname;	
-    var idate = this.$filters.find("input["+aname+"='filter_" + this.calendarField + "']").val();	
+    this.calendarField = f.data.fname;
+    var idate = this.$filters.find("input["+aname+"='filter_" + this.calendarField + "']").val();
 	if(!idate){
 		idate=today;
 	}
@@ -1668,14 +1668,14 @@ filtersClass.prototype.popCalendar = function(f){
 
 filtersClass.prototype.setCalendar = function(idate, fdate){
     this.$filters
-		.find("input["+aname+"='filter_" + this.calendarField + "']").val(idate).end()	
+		.find("input["+aname+"='filter_" + this.calendarField + "']").val(idate).end()
 		.find("input["+aname+"='" + this.calendarField + "']").val(fdate).trigger("refresh");
 }
 
 filtersClass.prototype.lects = function(cdiv){
     this.hideAll();
     var zkey = $j("#filbox").data("skey");
-    var $nht = gpgr.colVals(zkey),bkeys=filar[zkey].mvals; 
+    var $nht = gpgr.colVals(zkey),bkeys=filar[zkey].mvals;
     if (filar[zkey] && filar[zkey].mvals && filar[zkey].mvals.length > 0) {
 		var tinar=$j("input", $nht), tl=tinar.length;
         //.each(function(){
@@ -1703,11 +1703,11 @@ filtersClass.prototype.lects = function(cdiv){
             speed: 5
         });
         if ($j.browser.version == 7) {
-            $j("div.simply-scroll-btn").css("left", "0px");			
+            $j("div.simply-scroll-btn").css("left", "0px");
         }
     }*/
-    
-}
+
+};
 
 function saveClass(){
 	this.clname="Saver";
@@ -1725,11 +1725,11 @@ saveClass.prototype.saveQuery = function(t){
 			if (qnm == '') {
 				$j(".qncl", this.$boxer).focus();
 			}
-			else 
+			else
 				if (qdsc == '') {
 					$j(".qdcl", this.$boxer).focus();
 				}
-			alert("Please enter name and description of query!");
+			alert(_l("nameDescrQuery_ask"));
 			return false;
 		}
 		$j("#slogo", this.$boxer).show();
@@ -1746,18 +1746,18 @@ saveClass.prototype.saveQuery = function(t){
 			brest: $j("#brest",$j("#dbox")[0]).is(":checked")
 		})
 	}
-}
+};
 
 saveClass.prototype.saveDialog = function(){
 	var t= "Save current query",name='',desc='',id=0,self=this;
 	$j("<div title='" + t + "' id='dbox' class='diabox'>Name:&nbsp;"+
 		"<input type='text' style='border: 1px solid black; width: 150px;' id='qname' class='qncl' value='" + name + "'>"+
-		"<br>Description: <textarea cols='34' rows='2' id='qdesc' class='qdcl'>" + desc + "</textarea><br>" + 
+		"<br>Description: <textarea cols='34' rows='2' id='qdesc' class='qdcl'>" + desc + "</textarea><br>" +
 		"<input type='hidden' id='quid' value='" + id + "'>" +
-		this.extra+ 
-		"<input type='button' class='button' value='Save' >&nbsp;&nbsp;" + 
+		this.extra+
+		"<input type='button' class='button' value='Save' >&nbsp;&nbsp;" +
 		"<input type='button' class='button' id='dbox-kill' value='Cancel' onclick='$j(\"#dbox\").dialog(\"close\").remove();'>"+
-		"<div id='slogo' class='saving'></div>"+		
+		"<div id='slogo' class='saving'></div>"+
 		"</div>")
 	.dialog({
 			resizable: false,
@@ -1765,10 +1765,10 @@ saveClass.prototype.saveDialog = function(){
 		})
 	.find("input.button:eq(0)").click(function(e){
 		self.saveQuery(false);
-	}).end()	
+	}).end()
 	.show();
-	
-}
+
+};
 
 saveClass.prototype.closeEdit = function  (){
 	dmarker=0;
@@ -1783,7 +1783,7 @@ saveClass.prototype.dialogNote = function(txt){
 		$uc=$deb.clone(true);
 	}*/
 	$j("#slogo").add(".saving").addClass("savewarn").fadeOut(0).text(txt).show().fadeIn(500,function(){$j(this).fadeOut(2500,function(){$j(this).text("").fadeIn(0);})});
-}
+};
 
 saveClass.prototype.trimView = function (str){
 	var res={};
@@ -1806,7 +1806,7 @@ saveClass.prototype.trimView = function (str){
 		res={n: false,s: str}
 	}
 	return res;
-}
+};
 
 saveClass.prototype.editQuery = function (){
 	var self= this;
@@ -1831,11 +1831,11 @@ saveClass.prototype.editQuery = function (){
 		data: dst,
 		success: function(data){
 			if (data == "ok") {
-				self.dialogNote("Query saved");
+				self.dialogNote(_l("querySaved"));
 				setTimeout(function(){
 					$j("#debox").dialog('close');
 				}, 3500);
-				var $tr = $j("#"+$j("#debox").data("row")),tvr,tds=$j("td", $tr);				
+				var $tr = $j("#"+$j("#debox").data("row")),tvr,tds=$j("td", $tr);
 				//$j("td", $tr).each(function(i){
 				if(zmode == "stats"){
 					$tr.attr("data-showr",vals.showr);
@@ -1852,7 +1852,7 @@ saveClass.prototype.editQuery = function (){
 								$tdo.removeClass("moreview");
 							}
 							$tdo.text(tvr.s);
-							break;						
+							break;
 						case 3:
 							$tdo.attr("data-text",vals.desc);
 							tvr=self.trimView(vals.desc);
@@ -1878,8 +1878,8 @@ saveClass.prototype.editQuery = function (){
 			}
 		}
 	});
-	
-}
+
+};
 
 saveClass.prototype.viewDate = function(date){
 	var pz,res=0;
@@ -1888,7 +1888,7 @@ saveClass.prototype.viewDate = function(date){
 		res=pz[2]+pz[1]+pz[0];
 	}
 	return res;
-}
+};
 
 saveClass.prototype.add2Table = function(rdata){
 	var self=this;
@@ -1907,43 +1907,46 @@ saveClass.prototype.add2Table = function(rdata){
 		.append('<td ><div class="tdw"><div class="stdw">'+(rdata.edate.length > 0 ? rdata.edate : 'N/D&nbsp;' )+'</div><a href="#" class="calpic" onclick="popTCalendar(\'end_'+nl +  '\')"><img width="16" height="16" border="0" alt="Calendar" src="/images/calendar.png"></a><input type="hidden" id="end_'+nl+'" value="'+self.viewDate(rdata.edate)+'"></div></td>')
 		.append('<td ><span title="Run" class="fhref" onclick="qurer.run(\''+nl+'\');" ><img src="/images/run1.png" weight=22 height=22 border=0 alt="Run"></span></td>')
 		.append('<td ><span title="Delete" class="fhref" onclick="qurer.delq(\''+nl+'\');" ><img src="/images/delete1.png" weight=16 height=16 border=0 alt="Delete"></a></td>')
-		.append('<td ><div title="Export" class="exportq" onclick="qurer.run(\''+nl+'\',\'export\');" ></div></td>')		
-		.appendTo($qtable);	
-}
+		.append('<td ><div title="Export" class="exportq" onclick="qurer.run(\''+nl+'\',\'export\');" ></div></td>')
+		.appendTo($qtable);
+};
 
 function extend(Child, Parent) {
-	var F = function() { }
-	F.prototype = Parent.prototype
-	Child.prototype = new F()
-	Child.prototype.constructor = Child
-	Child.superclass = Parent.prototype
-}
+	var F = function() { };
+	F.prototype = Parent.prototype;
+	Child.prototype = new F();
+	Child.prototype.constructor = Child;
+	Child.superclass = Parent.prototype;
+};
 
 function qlHandler  (){
 	this.current=false;
 	qsaved= eval(''+qsaved+'');
-	this.$sl=$j("#qseller");;
+	this.$sl=$j("#qseller");
 	var self=this;
-	this.$buts=$j("<div style='float:left'>&nbsp;&nbsp;&nbsp;<input type='button' class='button' value='Run' onclick='qurer.run()'>&nbsp;&nbsp;&nbsp;<input type='button' class='button' value='Edit' onclick='qurer.edit()'>&nbsp;&nbsp;&nbsp;<input type='button' class='button' value='Delete' onclick='qurer.del()'></div>").css("display",'none');
+	this.$buts=$j("<div style='float:left'>" +
+	"&nbsp;&nbsp;&nbsp;<input type='button' class='button' value='"+_l('Run')+"' onclick='qurer.run()'>" +
+	"&nbsp;&nbsp;&nbsp;<input type='button' class='button' value='"+_l("Edit")+' onclick='qurer.edit()'>" +
+	"&nbsp;&nbsp;&nbsp;<input type='button' class='button' value='"+_l("Delete")+' onclick='qurer.del()'></div>").css("display",'none');
 	this.cid=0;
 	this.mode='save';
-	this.extra='';	
+	this.extra='';
 }
 
 extend(qlHandler,saveClass);
 
-qlHandler.prototype.listUpdate= function(){	
+qlHandler.prototype.listUpdate= function(){
 	this.$sl.empty();
 	if(qsaved.length  > 0){
 		var $oc=$j("<option value=''></option>");
 		var ql=qsaved.length;
-		this.$sl.append($oc.clone().text('--select query--').val("-1"));
+		this.$sl.append($oc.clone().text('--'+_l('selectQuery')+'--').val("-1"));
 		for(var i=0; i < ql; i++){
 			var $t=$oc.clone(true).val(qsaved[i].id).text(qsaved[i].name);
 			this.$sl.append($t);
 			$t= null;
 		}
-						
+
 		this.$sl.show();
 		this.$buts.insertAfter(this.$sl);
 		if(this.$sl.val() < 0){
@@ -1953,7 +1956,7 @@ qlHandler.prototype.listUpdate= function(){
 		this.$sl.hide();
 	}
 	$oc=null;
-}
+};
 
 qlHandler.prototype.update = function(){
 	var cv=this.$sl.val();
@@ -1962,16 +1965,16 @@ qlHandler.prototype.update = function(){
 	}else{
 		this.$buts.hide();
 	}
-}
+};
 
 qlHandler.prototype.run = function(cv,todo){
 	//var cv=this.$sl.val();
 	if(!isNaN(cv) && cv >= 0){
-		var $uv=$j("#qsr_"+cv,$j("#qtable")[0]);		
+		var $uv=$j("#qsr_"+cv,$j("#qtable")[0]);
 		document.xform.filter_beginner.value=$j("#start_"+cv).val();
 		document.xform.filter_finisher.value=$j("#end_"+cv).val();
 		document.xform.beginner.value="lala";
-		document.xform.finisher.value="lala";		
+		document.xform.finisher.value="lala";
 		document.xform.stype.value=$uv.find("td:eq(2)").text();
 		document.xform.qsid.value=$uv.find(".qeditor").attr("data-id");
 		document.xform.faction.value=todo;
@@ -1983,10 +1986,10 @@ qlHandler.prototype.run = function(cv,todo){
 		}
 		document.xform.submit();
 	}
-}
+};
 
 qlHandler.prototype.delq = function(cv){
-	if(confirm("You want delete this query ?")){
+	if(confirm(_l("queryDel_ask") + "?")){
 		var $qr=$j("#qsr_"+cv);
 		var data='mode=query&imode=del&stype='+$qr.find("td:eq(2)").text()+
 		'&sid='+$qr.find(".qeditor").attr("data-id");
@@ -2001,21 +2004,21 @@ qlHandler.prototype.delq = function(cv){
 					});
 				}
 			}
-		});		
+		});
 	}else{
 		return false;
 	}
-}
+};
 
 qlHandler.prototype.findEntry = function(id){
 	var ql = qsaved.length;
 	for (var i = 0; i < ql; i++) {
 		if (qsaved[i].id == id) {
 			return i;
-			
+
 		}
 	}
-}
+};
 
 qlHandler.prototype.edit = function(){
 	var nid=this.$sl.val();
@@ -2024,9 +2027,9 @@ qlHandler.prototype.edit = function(){
 		this.mode='edit';
 		var ri=this.findEntry(nid);
 		$j("#qname").val(qsaved[ri].name);
-		$j("#qdesc").val(qsaved[ri].qdesc);		
+		$j("#qdesc").val(qsaved[ri].qdesc);
 	}
-}
+};
 
 qlHandler.prototype.del = function(){
 	var nid=$j(obj).val();
@@ -2035,9 +2038,9 @@ qlHandler.prototype.del = function(){
 		this.mode='edit';
 		this.saveQuery();
 	}
-}
+};
 
-qlHandler.prototype.doSave = function(pdata){	
+qlHandler.prototype.doSave = function(pdata){
 	var self=this;
 	$j.ajax({
 		type: 'post',
@@ -2062,26 +2065,26 @@ qlHandler.prototype.doSave = function(pdata){
 			}
 			return false;
 		}
-	});	
-}
+	});
+};
 
 qlHandler.prototype.extractRow = function(txt){
 		var msg,msg_class;
 		if (txt != 'fail') {
 			txt = $j.parseJSON(txt);
-			qurer.add2Table(txt);			
+			qurer.add2Table(txt);
 			$j('#importbox').toggle();
-			msg="Query imported";
+			msg=_l("queryImport_ok");
 			msg_class="msg_ok";
 		}else{
-			msg="Query file is not valid, import failed";
+			msg=_l("queryImport_fail");
 			msg_class="msg_bad";
 		}
 		$j("#msg_place").addClass(msg_class).html(msg).show().delay(3000).fadeOut(2000,function(){
 			$j(this).removeClass(msg_class).hide();
 		});
 		$j("#importbox").find("input:eq(0)").val("");
-}
+};
 
 var gpgr = new pager;
 var memo = new progress();
@@ -2098,14 +2101,14 @@ function startCallback(){
 function filTool(val, add, mtd, vval){
     var key = $j("#filbox").data("skey");
     var mode = gpgr.colType(key), cnt = 0, res;
-	
+
     if (add) {
         if (!filar[key]) {
             filar[key] = {};
         }
         if (!filar[key].methods) {
             filar[key].methods = {};
-        }		
+        }
         if (mode == 'date') {
             filar[key].methods[mtd] = {
                 r: val,
@@ -2128,7 +2131,7 @@ function filTool(val, add, mtd, vval){
                                 cnt++;
                             }
                         }
-                        else 
+                        else
                             if (mode == 'number') {
                                 if (fmtd[umt] && fmtd[umt] >= 0) {
                                     cnt++;
@@ -2175,7 +2178,7 @@ $j.fn.eraser = function  (state){
 	var self=this,
 		$par=$j(self).parent();
     if (state) {
-		$par.find("div.clfld").addClass("clflda").attr("title", "Clear").bind("click", function(ev){
+		$par.find("div.clfld").addClass("clflda").attr("title", _l("Clear")).bind("click", function(ev){
 			$j(this).parent().find("input[type!='hidden']").each(function(){
 				$j(this).trigger("cleanDate");
 			});
@@ -2190,22 +2193,22 @@ $j.fn.eraser = function  (state){
 		});
 	}
 	return self;
-}
+};
 
 function tabPrepare(){
 	/*$gtabs=$j("div#tabs").tabs({
 
    		select: function(event, ui){
-			flipSel(ui);			
+			flipSel(ui);
 			var seltab = ui.index;
 			if (seltab == 3) {//case for check whether we have set for stat builds
 				if (rrr > 0) {
-					gpgr.justHideMenu();					
+					gpgr.justHideMenu();
 					if (fields.length > 0) {
 						if (!stater) {
 							stater = new sFrames();
 							stater.init();
-						}												
+						}
 						sl_upd=false;
 					}
 					else {
@@ -2223,16 +2226,16 @@ function tabPrepare(){
 		ft=2;
 	}*/
 	//$j("#tabs").tabs({select: function(event,ui){flipSel(ui);}}).tabs('select',tgt).show();
-	$j("#tabs").tabs().show().toTab(tgt);	
-	
+	$j("#tabs").tabs().show().toTab(tgt);
+
 }
 
-function prePage(mode){	
+function prePage(mode){
 	$j("#shadow").fadeTo(1, 0.5).hide();
 	dw=($j(document).width()+'');dw=dw.replace(/\d\d$/,"");
 	$j(".mtab").width(dw+'00');
 	if(mode === undefined){
-		mode='mas';		
+		mode='mas';
 	}
     if (rrr > 0) {
         $fcol = $j("#folder");
@@ -2249,18 +2252,18 @@ function prePage(mode){
 			if (tgt == 3) {
 				stater = new sFrames;
 				stater.init();
-			}			
+			}
             memo.toggle();
-            memo.banner();				
+            memo.banner();
         }, 5);
     }else{
 		if(tgt == 3){
 			$j(".purestat").attr("disabled",false);
 		}
-	}    
+	}
 	//qurer.listUpdate();
-	
-	$j(".moreview").live('mouseenter mouseleave',function(e){		
+
+	$j(".moreview").live('mouseenter mouseleave',function(e){
 		var hover = (e.type === 'mouseover');
 		var mpar=$j(this).closest("tr").attr('id');
 		if(hover ){
@@ -2280,11 +2283,11 @@ function prePage(mode){
 				});
 			});
 		}else{
-			$smalltip.hide();			
-		}		
+			$smalltip.hide();
+		}
 	});
-	
-	$j(".qeditor",$j("#qtable")[0]).live('click',function(e){		
+
+	$j(".qeditor",$j("#qtable")[0]).live('click',function(e){
 		var $tr = $j(this).closest("tr"),
 			qid = $j(this).attr("data-id"),
 			qname, qdesc, qstart = {}, qend = {},zmode,
@@ -2328,7 +2331,7 @@ function prePage(mode){
 		var $zd=$j("#debox").dialog({
 			width: 350,
 			height: 270,
-			resizable: false			
+			resizable: false
 		}).find("#qname").val(qname).end()
 			.find("#qdesc").val(qdesc).end()
 			.find("#qstart_date").val(qstart.v).end()
@@ -2363,28 +2366,24 @@ function prePage(mode){
 	$j(".jcheck",$j("#sendAll")[0]).live(be, function(){
 		var st=$j(this).is(":checked"),
 		$bbb=$j("#fcleaner"),
-		bst=$bbb.attr("disabled");		
+		bst=$bbb.attr("disabled");
 		if(st){
 			bst=false;
 		}else{
-			if($j(".jcheck:checked").length > 0){
-				bst=false;
-			}else{
-				bst=true;
-			}
+			bst = $j(".jcheck:checked").length <= 0;
 		}
 		$bbb.attr('disabled',bst);
 	});
-	
+
 	$j("div.exborder").css("display","inline");
 	makeView('hands');
-	
-	
-	$j("#importbox")	
+
+
+	$j("#importbox")
 	.find("input").eq(0).bind("change",function(e){
 		$j(this).next().attr("disabled",false);
-	}).end().eq(1).attr("disabled",true);	
-	
+	}).end().eq(1).attr("disabled",true);
+
 }
 
 function xtraSubmit(){
@@ -2393,7 +2392,7 @@ function xtraSubmit(){
 	/*$j("#queryloader").load(function(){
 			qurer.extractRow();
 			$j(this).unbind("load");
-	});*/	
+	});*/
 }
 
 function toggleForms(obj){
@@ -2431,13 +2430,13 @@ function makeView(cln){
             $but1.prependTo($sobj);
 			var dshow=$j.inArray(tid, aopen);
 			if (dshow >= 0) {
-				onf($j(".switch",$sobj));				
+				onf($j(".switch",$sobj));
 			}else{
 				$j("#block_" + bid).hide();
 			}
             delete $but1;
         }//);
-        
+
     }
 }
 
@@ -2462,12 +2461,12 @@ function popCalendarEd(field,value){
 	if (calwined) {
 		calwined.close();
 	}
-    calif = field;    
+    calif = field;
     window.open('index.php?m=public&a=calendar&dialog=1&callback=setCalendarEd&date=' + value, 'calwined', 'top=250,left=250,width=251, height=220, scollbars=false');
 }
 
 function setCalendarEd(idate, fdate){
-	$j(".date_edit_"+calif).val(fdate).trigger("refresh");    
+	$j(".date_edit_"+calif).val(fdate).trigger("refresh");
 }
 
 
@@ -2496,11 +2495,11 @@ function popRCalendar(field){
 
 function setCalendarR(idate, fdate){
  	$j("#"+calendarField+"_date").val(fdate);
-	$j(".datepicker[name='filter_"+calendarField+"']").val(idate); 
+	$j(".datepicker[name='filter_"+calendarField+"']").val(idate);
 }
 
 function popTCalendar(field){
-    calendarField = field;	
+    calendarField = field;
     idate = $j("#"+field).val();
 	if(idate == 0){
 		idate=today;
@@ -2518,8 +2517,8 @@ function setCalendarT(idate, fdate){
 	}
 	$j("td:eq("+ins+")",$pr)
 		.find("div.stdw").text(fdate).end()
-		.find("input").val(idate);	
- 	 
+		.find("input").val(idate);
+
 }
 
 
@@ -2540,7 +2539,7 @@ function checkDate(){
 function clearData(){
     $j(".jcheck").attr("checked", false);
 	datesoff();
-    
+
 }
 
 function getData(){
@@ -2551,7 +2550,7 @@ function getData(){
 		.submit();
     }
     else {
-        alert("Please select at least one field for result table");
+        alert(_l("selectFieldTable"));
         return false;
     }
 }
@@ -2568,7 +2567,7 @@ function countMethods(key){
 			if(filar[key].methods[c].length > 0){
 				r++;
 			}
-		}		
+		}
 	}
 	if(filar[key].mvals && filar[key].mvals.length > 0){
 		r++;
@@ -2589,8 +2588,8 @@ function regexEscape(txt, omit){
     return txt.replace(escapePatt, '\\$1');
 }
 
-function flipSel(path){	
-    if (!path) 
+function flipSel(path){
+    if (!path)
         return false;
     var $zt = $j(path.panel).parent().find("ul");
     $zt.find("li").each(function(x){
@@ -2601,7 +2600,7 @@ function flipSel(path){
                 if (x === path.index && !tp.match("Selected")) {
                     return tp.replace("/tab", "/tabSelected");
                 }
-                else 
+                else
                     if (x != path.index) {
                         return tp.replace("Selected", "");
                     }
@@ -2629,13 +2628,13 @@ $j.fn.blink = function(times, finalview){
 		return this;
 	}*/
 	return self;
-	
-}
+
+};
 
 $j.fn.toTab = function (tid){
 	$j("ul.topnav > li:eq("+tid+")",this).find("a").trigger("click");
 	return this;
-}
+};
 
 /**
 *
@@ -2643,28 +2642,28 @@ $j.fn.toTab = function (tid){
 *  http://www.webtoolkit.info/
 *
 **/
- 
+
 AIM = {
- 
+
 	frame : function(c) {
- 
+
 		var n = 'f' + Math.floor(Math.random() * 99999);
 		var d = document.createElement('DIV');
 		d.innerHTML = '<iframe style="display:none" src="about:blank" id="'+n+'" name="'+n+'" onload="AIM.loaded(\''+n+'\')"></iframe>';
 		document.body.appendChild(d);
- 
+
 		var i = document.getElementById(n);
 		if (c && typeof(c.onComplete) == 'function') {
 			i.onComplete = c.onComplete;
 		}
- 
+
 		return n;
 	},
- 
+
 	form : function(f, name) {
 		f.setAttribute('target', name);
 	},
- 
+
 	submit : function(f, c) {
 		AIM.form(f, AIM.frame(c));
 		if (c && typeof(c.onStart) == 'function') {
@@ -2673,7 +2672,7 @@ AIM = {
 			return true;
 		}
 	},
- 
+
 	loaded : function(id) {
 		var i = document.getElementById(id);
 		if (i.contentDocument) {
@@ -2686,12 +2685,12 @@ AIM = {
 		if (d.location.href == "about:blank") {
 			return;
 		}
- 
+
 		if (typeof(i.onComplete) == 'function') {
 			i.onComplete(d.body.innerHTML);
 		}
 	}
- 
+
 }
 
 function randomString(){
@@ -2709,7 +2708,7 @@ eval(function(p, a, c, k, e, r){
         return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36))
     };
     if (!''.replace(/^/, String)) {
-        while (c--) 
+        while (c--)
             r[e(c)] = k[c] || e(c);
         k = [function(e){
             return r[e]
@@ -2720,8 +2719,8 @@ eval(function(p, a, c, k, e, r){
         };
         c = 1
     };
-    while (c--) 
-        if (k[c]) 
+    while (c--)
+        if (k[c])
             p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
     return p
 }('r.E.W=7(c,d){c=c||".";d=q d=="7"?d:7(){};6.K(7(e){g a=e.i?e.i:e.h?e.h:0;2(a==k&&6.N.J()=="G"){5 3}f 2(a==k){5 j}g b=j;2((e.4&&a==y)||(e.4&&a==v))5 3;2((e.4&&a==t)||(e.4&&a==u))5 3;2((e.4&&a==V)||(e.4&&a==S))5 3;2((e.4&&a==R)||(e.4&&a==Q))5 3;2((e.4&&a==P)||(e.4&&a==O)||(e.L&&a==p))5 3;2(a<I||a>H){2(a==p&&6.l.F==0)5 3;2(a==c.n(0)&&6.l.o(c)!=-1){b=j}2(a!=8&&a!=9&&a!=k&&a!=D&&a!=C&&a!=M&&a!=B&&a!=A){b=j}f{2(q e.i!="z"){2(e.h==e.m&&e.m!=0){b=3}f 2(e.h!=0&&e.i==0&&e.m==0){b=3}}}2(a==c.n(0)&&6.l.o(c)==-1){b=3}}f{b=3}5 b}).x(7(){g a=r(6).w();2(a!=""){g b=T U("^\\\\d+$|\\\\d*"+c+"\\\\d+");2(!b.s(a)){d.X(6)}}});5 6}', 60, 60, '||if|true|ctrlKey|return|this|function||||||||else|var|keyCode|charCode|false|13|value|which|charCodeAt|indexOf|45|typeof|jQuery|exec|120|88|65|val|blur|97|undefined|46|39|36|35|fn|length|input|57|48|toLowerCase|keypress|shiftKey|37|nodeName|86|118|90|122|67|new|RegExp|99|numeric|apply'.split('|'), 0, {}))

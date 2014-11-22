@@ -1119,3 +1119,17 @@ function arrayElement(action, el, arr){
 	arr.sort();
 	return arr;
 }
+
+/**
+ * Check presence of string in vocabular, if so then return translated string
+ * @param lstr
+ * @returns string
+ * @private
+ */
+function _l(lstr){
+  var res = lstr;
+  if(jWords && lstr !='' && jWords.hasOwnProperty(lstr) && jWords[lstr]!=''){
+    res = jWords[lstr];
+  }
+  return res;
+}

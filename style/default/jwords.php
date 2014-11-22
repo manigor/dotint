@@ -10,7 +10,7 @@
 <!------------------------------ LOCALE ------------------->
 <script>
 var jWords = <?php
-	json_encode($GLOBALS['translate']);
+	echo json_encode($GLOBALS['translate']);
 ?>;
 </script>
 <!----------------------------- LOCALE END ---------------->
